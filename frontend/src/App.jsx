@@ -10,7 +10,6 @@ export default function App() {
   const [error, setError] = useState(null);
 
   // Load articles whenever the "show featured" toggle changes
-
   useEffect(() => {
     let isCancelled = false;
 
@@ -24,18 +23,15 @@ export default function App() {
           setArticles(data);
         }
       } catch (e) {
-        if (!isCancelled) {
-          setError(e.message);
-        }
+        if (!isCancelled) setError(e.message);
       }
     }
 
     load();
-
     return () => {
       isCancelled = true;
     };
-  }, []); // ← bug here
+  }, [showFeaturedOnly]); 
 
   const handleSelectArticle = async (articleId) => {
     try {
